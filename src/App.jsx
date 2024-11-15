@@ -7,7 +7,7 @@ function App() {
     <div className=''>
       <Header />
 
-      <div className='grid md:grid-cols-2'>
+      <div className='grid md:grid-cols-2 md:max-w-4xl drop-shadow-sm'>
         <Form />
         <Summary />
       </div>

@@ -3,7 +3,7 @@ import iconPerson from '/icon-person.svg';
 
 function Form() {
   return (
-    <div className='bg-white p-8 rounded-t-3xl md:rounded-tl-3xl md:rounded-bl-3xl md:rounded-tr-none'>
+    <div className='bg-white p-8 md:pt-10 md:pl-10 md:pb-10 md:pr-4 rounded-t-3xl md:rounded-tl-3xl md:rounded-bl-3xl md:rounded-tr-none'>
       <form action='#' className='grid grid-col-1 gap-y-7'>
         {/* bill */}
         <div className='flex flex-col [&>:not(:last-child)]:mb-2'>
@@ -47,7 +47,7 @@ function Form() {
             <input
               type='text'
               placeholder='Custom'
-              className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors selection:bg-cyan-400 selection:text-cyan-200 hover:cursor-pointer placeholder:text-cyan-400'
+              className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors selection:bg-cyan-400 selection:text-cyan-200 hover:cursor-pointer placeholder:text-cyan-400'
             />
           </div>
         </div>
