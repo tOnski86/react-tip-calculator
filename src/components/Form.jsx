@@ -26,6 +26,11 @@ function Form({ handleBill }) {
     setPeople(userInput);
   }
 
+  function handleTip(e) {
+    e.preventDefault();
+    setTip(Number(e.target.value));
+  }
+
   useEffect(() => {
     if (!bill || !people || !tip) return;
 
@@ -75,7 +80,7 @@ function Form({ handleBill }) {
                   : 'text-white bg-cyan-600'
               }`}
               value={0.05}
-              onClick={e => setTip(Number(e.target.value))}
+              onClick={e => handleTip(e)}
             >
               5%
             </button>
@@ -86,7 +91,7 @@ function Form({ handleBill }) {
                   : 'text-white bg-cyan-600'
               }`}
               value={0.1}
-              onClick={e => setTip(Number(e.target.value))}
+              onClick={e => handleTip(e)}
             >
               10%
             </button>
@@ -97,7 +102,7 @@ function Form({ handleBill }) {
                   : 'text-white bg-cyan-600'
               }`}
               value={0.15}
-              onClick={e => setTip(Number(e.target.value))}
+              onClick={e => handleTip(e)}
             >
               15%
             </button>
@@ -108,7 +113,7 @@ function Form({ handleBill }) {
                   : 'text-white bg-cyan-600'
               }`}
               value={0.25}
-              onClick={e => setTip(Number(e.target.value))}
+              onClick={e => handleTip(e)}
             >
               25%
             </button>
@@ -119,7 +124,7 @@ function Form({ handleBill }) {
                   : 'text-white bg-cyan-600'
               }`}
               value={0.5}
-              onClick={e => setTip(Number(e.target.value))}
+              onClick={e => handleTip(e)}
             >
               50%
             </button>
