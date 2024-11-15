@@ -8,7 +8,6 @@ function App() {
   const [bill, setBill] = useState('');
   const [tip, setTip] = useState('');
   const [people, setPeople] = useState('');
-  const [customTip, setCustomTip] = useState('');
   const [reset, setReset] = useState(false);
 
   useEffect(() => {
@@ -23,16 +22,13 @@ function App() {
     calculateBill();
   }, [setComputeBill, bill, people, tip]);
 
-  function handleReset(reset) {
-    if (reset) {
-      setBill('');
-      setTip('');
-      setPeople('');
-      setCustomTip('');
-      setComputeBill({});
-      setReset(false);
-      console.log('reset');
-    }
+  function handleReset() {
+    setBill('');
+    setTip('');
+    setPeople('');
+    setComputeBill({});
+    setReset(false);
+    console.log('reset');
   }
 
   return (
@@ -43,14 +39,16 @@ function App() {
         <Form
           bill={bill}
           tip={tip}
-          customTip={customTip}
           people={people}
           handleSetBill={setBill}
           handleSetTip={setTip}
-          handleCustomTip={setCustomTip}
           handleSetPeople={setPeople}
         />
-        <Summary computeBill={computeBill} handleReset={handleReset} />
+        <Summary
+          computeBill={computeBill}
+          reset={reset}
+          handleReset={handleReset}
+        />
       </div>
     </>
   );

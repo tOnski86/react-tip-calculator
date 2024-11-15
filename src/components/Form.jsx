@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import Error from './Error';
 import iconDollar from '/icon-dollar.svg';
 import iconPerson from '/icon-person.svg';
 
@@ -8,28 +9,12 @@ const MAX_PEOPLE = 1000000;
 function Form({
   bill,
   tip,
-  customTip,
   people,
   handleSetBill,
   handleSetTip,
-  handleCustomTip,
   handleSetPeople,
 }) {
-  function validateBill(e) {
-    const userInput = Number(e.target.value);
-    if (userInput > MAX_BILL) return;
-
-    handleSetBill(userInput);
-  }
-
-  function validatePeople(e) {
-    const userInput = Number(e.target.value);
-    if (userInput > MAX_PEOPLE) return;
-
-    handleSetPeople(userInput);
-  }
-
-  function handleTip(e) {
+  function handleTips(e) {
     e.preventDefault();
     handleSetTip(Number(e.target.value));
   }
@@ -39,16 +24,22 @@ function Form({
       <form action='#' className='grid grid-col-1 gap-y-7'>
         {/* bill */}
         <div className='flex flex-col [&>:not(:last-child)]:mb-2'>
-          <label htmlFor='#' className='text-cyan-400 font-bold'>
-            Bill
-          </label>
+          <div className='flex justify-between items-center'>
+            <label htmlFor='bill' className='text-cyan-400 font-bold'>
+              Bill
+            </label>
+            {bill > MAX_BILL && <Error>Must not exceed {MAX_BILL}</Error>}
+          </div>
           <div className='relative overflow-hidden grid grid-cols-1'>
             <input
+              id='bill'
               value={bill}
-              onChange={e => validateBill(e)}
+              onChange={e => handleSetBill(Number(e.target.value))}
               type='number'
               placeholder='0'
-              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
+              className={` bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2  border-2 border-cyan-100 transition-colors hover:cursor-pointer [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                bill > MAX_BILL ? 'focus:border-red' : 'focus:border-cyan-500'
+              }`}
             />
             <img
               src={iconDollar}
@@ -59,7 +50,7 @@ function Form({
 
         {/* select tip */}
         <div className='flex flex-col [&>:not(:last-child)]:mb-4'>
-          <label htmlFor='#' className='text-cyan-400 font-bold'>
+          <label htmlFor='tip' className='text-cyan-400 font-bold'>
             Select Tip %
           </label>
 
@@ -71,7 +62,7 @@ function Form({
                   : 'text-white bg-cyan-600'
               }`}
               value={0.05}
-              onClick={e => handleTip(e)}
+              onClick={e => handleTips(e)}
             >
               5%
             </button>
@@ -82,7 +73,7 @@ function Form({
                   : 'text-white bg-cyan-600'
               }`}
               value={0.1}
-              onClick={e => handleTip(e)}
+              onClick={e => handleTips(e)}
             >
               10%
             </button>
@@ -93,7 +84,7 @@ function Form({
                   : 'text-white bg-cyan-600'
               }`}
               value={0.15}
-              onClick={e => handleTip(e)}
+              onClick={e => handleTips(e)}
             >
               15%
             </button>
@@ -104,7 +95,7 @@ function Form({
                   : 'text-white bg-cyan-600'
               }`}
               value={0.25}
-              onClick={e => handleTip(e)}
+              onClick={e => handleTips(e)}
             >
               25%
             </button>
@@ -115,32 +106,41 @@ function Form({
                   : 'text-white bg-cyan-600'
               }`}
               value={0.5}
-              onClick={e => handleTip(e)}
+              onClick={e => handleTips(e)}
             >
               50%
             </button>
             <input
+              id='tip'
               type='text'
               placeholder='Custom'
               className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer placeholder:text-cyan-400'
-              value={customTip}
-              onChange={e => handleCustomTip(Number(e.target.value))}
+              value={tip}
+              onChange={e => handleTips(e.target.value)}
             />
           </div>
         </div>
 
         {/* number of people */}
         <div className='flex flex-col [&>:not(:last-child)]:mb-2'>
-          <label htmlFor='#' className='text-cyan-400 font-bold'>
-            Number of People
-          </label>
+          <div className='flex justify-between items-center'>
+            <label htmlFor='people' className='text-cyan-400 font-bold'>
+              Number of People
+            </label>
+            {people > MAX_PEOPLE && <Error>Must not exceed {MAX_PEOPLE}</Error>}
+          </div>
           <div className='relative overflow-hidden grid grid-cols-1'>
             <input
+              id='people'
               value={people}
-              onChange={e => validatePeople(e)}
+              onChange={e => handleSetPeople(e.target.value)}
               type='text'
               placeholder='0'
-              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-red border-2 border-cyan-100 transition-colors hover:cursor-pointer'
+              className={` bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2  border-2 border-cyan-100 transition-colors hover:cursor-pointer [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
+                people > MAX_PEOPLE
+                  ? 'focus:border-red'
+                  : 'focus:border-cyan-500'
+              }`}
             />
             <img
               src={iconPerson}

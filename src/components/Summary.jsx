@@ -58,8 +58,13 @@ function Summary({ computeBill, handleReset }) {
 
           {/* button */}
           <button
-            className='w-full uppercase bg-cyan-500 px-4 py-2 text-xl font-semibold text-cyan-600 rounded-md hover:bg-powder hover:text-cyan-600 disabled:opacity-20'
-            onClick={() => handleReset(true)}
+            disabled={!tipPerPerson && !totalPerPerson}
+            className={`w-full uppercase bg-cyan-500 px-4 py-2 text-xl font-semibold text-cyan-600 rounded-md transition-opacity ${
+              tipPerPerson && totalPerPerson
+                ? 'hover:bg-powder hover:text-cyan-600'
+                : 'disabled:opacity-20 cursor-not-allowed'
+            }`}
+            onClick={() => handleReset()}
           >
             Reset
           </button>
