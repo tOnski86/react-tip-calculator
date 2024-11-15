@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import Error from './Error';
 import iconDollar from '/icon-dollar.svg';
 import iconPerson from '/icon-person.svg';
@@ -16,7 +17,7 @@ function Form({
 }) {
   function handleTips(e) {
     e.preventDefault();
-    handleSetTip(Number(e.target.value));
+    handleSetTip(e.target.value);
   }
 
   return (
@@ -116,7 +117,7 @@ function Form({
               placeholder='Custom'
               className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer placeholder:text-cyan-400'
               value={tip}
-              onChange={e => handleTips(e.target.value)}
+              onChange={e => handleTips(e)}
             />
           </div>
         </div>
