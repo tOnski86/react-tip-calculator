@@ -17,7 +17,7 @@ function Form({
 }) {
   function handleTips(e) {
     e.preventDefault();
-    handleSetTip(e.target.value);
+    handleSetTip(Number(e.target.value));
   }
 
   return (
