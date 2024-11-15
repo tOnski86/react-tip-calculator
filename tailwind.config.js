@@ -14,6 +14,7 @@ export default {
         600: 'hsl(183, 100%, 15%)',
       },
       red: '#B58372',
+      powder: '#9FE8DF',
     },
     fontFamily: {
       spaceMono: ['"Space Mono"', 'sans-serif'],
