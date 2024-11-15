@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 
 /* eslint-disable react/prop-types */
-function Summary({ bill }) {
+function Summary({ computeBill, handleReset }) {
   const [animate, setAnimate] = useState(false);
 
-  const { tipPerPerson, totalPerPerson } = bill;
+  const { tipPerPerson, totalPerPerson } = computeBill;
 
   useEffect(() => {
     setAnimate(true);
@@ -57,7 +57,10 @@ function Summary({ bill }) {
           </div>
 
           {/* button */}
-          <button className='w-full uppercase bg-cyan-500 px-4 py-2 text-xl font-semibold text-cyan-600 rounded-md hover:bg-powder hover:text-cyan-600 disabled:opacity-20'>
+          <button
+            className='w-full uppercase bg-cyan-500 px-4 py-2 text-xl font-semibold text-cyan-600 rounded-md hover:bg-powder hover:text-cyan-600 disabled:opacity-20'
+            onClick={() => handleReset(true)}
+          >
             Reset
           </button>
         </div>

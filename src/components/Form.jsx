@@ -1,47 +1,38 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
 import iconDollar from '/icon-dollar.svg';
 import iconPerson from '/icon-person.svg';
 
 const MAX_BILL = 1000000;
 const MAX_PEOPLE = 1000000;
 
-function Form({ handleBill }) {
-  const [bill, setBill] = useState('');
-  const [people, setPeople] = useState('');
-  const [tip, setTip] = useState('');
-  const [customTip, setCustomTip] = useState('');
-
+function Form({
+  bill,
+  tip,
+  customTip,
+  people,
+  handleSetBill,
+  handleSetTip,
+  handleCustomTip,
+  handleSetPeople,
+}) {
   function validateBill(e) {
     const userInput = Number(e.target.value);
     if (userInput > MAX_BILL) return;
 
-    setBill(userInput);
+    handleSetBill(userInput);
   }
 
   function validatePeople(e) {
     const userInput = Number(e.target.value);
     if (userInput > MAX_PEOPLE) return;
 
-    setPeople(userInput);
+    handleSetPeople(userInput);
   }
 
   function handleTip(e) {
     e.preventDefault();
-    setTip(Number(e.target.value));
+    handleSetTip(Number(e.target.value));
   }
-
-  useEffect(() => {
-    if (!bill || !people || !tip) return;
-
-    function calculateBill() {
-      const tipPerPerson = ((bill * tip) / people).toFixed(2);
-      const totalPerPerson = ((bill * tip + bill) / people).toFixed(2);
-
-      handleBill({ tipPerPerson, totalPerPerson });
-    }
-    calculateBill();
-  }, [handleBill, bill, people, tip]);
 
   return (
     <div className='bg-white p-8 md:pt-10 md:pl-10 md:pb-10 md:pr-4 rounded-t-3xl md:rounded-tl-3xl md:rounded-bl-3xl md:rounded-tr-none'>
@@ -133,7 +124,7 @@ function Form({ handleBill }) {
               placeholder='Custom'
               className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer placeholder:text-cyan-400'
               value={customTip}
-              onChange={e => setCustomTip(Number(e.target.value))}
+              onChange={e => handleCustomTip(Number(e.target.value))}
             />
           </div>
         </div>
