@@ -1,7 +1,43 @@
+/* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react';
 import iconDollar from '/icon-dollar.svg';
 import iconPerson from '/icon-person.svg';
 
-function Form() {
+const MAX_BILL = 1000000;
+const MAX_PEOPLE = 1000000;
+
+function Form({ handleBill }) {
+  const [bill, setBill] = useState('');
+  const [people, setPeople] = useState('');
+  const [tip, setTip] = useState('');
+  const [customTip, setCustomTip] = useState('');
+
+  function validateBill(e) {
+    const userInput = Number(e.target.value);
+    if (userInput > MAX_BILL) return;
+
+    setBill(userInput);
+  }
+
+  function validatePeople(e) {
+    const userInput = Number(e.target.value);
+    if (userInput > MAX_PEOPLE) return;
+
+    setPeople(userInput);
+  }
+
+  useEffect(() => {
+    if (!bill || !people || !tip) return;
+
+    function calculateBill() {
+      const tipPerPerson = ((bill * tip) / people).toFixed(2);
+      const totalPerPerson = ((bill * tip + bill) / people).toFixed(2);
+
+      handleBill({ tipPerPerson, totalPerPerson });
+    }
+    calculateBill();
+  }, [handleBill, bill, people, tip]);
+
   return (
     <div className='bg-white p-8 md:pt-10 md:pl-10 md:pb-10 md:pr-4 rounded-t-3xl md:rounded-tl-3xl md:rounded-bl-3xl md:rounded-tr-none'>
       <form action='#' className='grid grid-col-1 gap-y-7'>
@@ -12,8 +48,11 @@ function Form() {
           </label>
           <div className='relative overflow-hidden grid grid-cols-1'>
             <input
-              type='text'
-              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors selection:bg-cyan-400 selection:text-cyan-200 hover:cursor-pointer '
+              value={bill}
+              onChange={e => validateBill(e)}
+              type='number'
+              placeholder='0'
+              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none'
             />
             <img
               src={iconDollar}
@@ -29,25 +68,67 @@ function Form() {
           </label>
 
           <div className='grid grid-cols-2 grid-rows-2 gap-4 sm:grid-cols-3'>
-            <button className='bg-cyan-600 px-4 py-2 text-2xl font-semibold text-white rounded-md active:text-cyan-600 active:bg-cyan-500 transition-colors hover:bg-powder hover:text-cyan-600'>
+            <button
+              className={` px-4 py-2 text-2xl font-semibold  rounded-md  transition-colors hover:bg-powder hover:text-cyan-600 ${
+                tip === 0.05
+                  ? 'text-cyan-600 bg-cyan-500'
+                  : 'text-white bg-cyan-600'
+              }`}
+              value={0.05}
+              onClick={e => setTip(Number(e.target.value))}
+            >
               5%
             </button>
-            <button className='bg-cyan-600 px-4 py-2 text-2xl font-semibold text-white rounded-md active:text-cyan-600 active:bg-cyan-500 transition-colors hover:bg-powder hover:text-cyan-600'>
+            <button
+              className={` px-4 py-2 text-2xl font-semibold  rounded-md  transition-colors hover:bg-powder hover:text-cyan-600 ${
+                tip === 0.1
+                  ? 'text-cyan-600 bg-cyan-500'
+                  : 'text-white bg-cyan-600'
+              }`}
+              value={0.1}
+              onClick={e => setTip(Number(e.target.value))}
+            >
               10%
             </button>
-            <button className='bg-cyan-600 px-4 py-2 text-2xl font-semibold text-white rounded-md active:text-cyan-600 active:bg-cyan-500 transition-colors hover:bg-powder hover:text-cyan-600'>
+            <button
+              className={` px-4 py-2 text-2xl font-semibold  rounded-md  transition-colors hover:bg-powder hover:text-cyan-600 ${
+                tip === 0.15
+                  ? 'text-cyan-600 bg-cyan-500'
+                  : 'text-white bg-cyan-600'
+              }`}
+              value={0.15}
+              onClick={e => setTip(Number(e.target.value))}
+            >
               15%
             </button>
-            <button className='bg-cyan-600 px-4 py-2 text-2xl font-semibold text-white rounded-md active:text-cyan-600 active:bg-cyan-500 transition-colors hover:bg-powder hover:text-cyan-600'>
+            <button
+              className={` px-4 py-2 text-2xl font-semibold  rounded-md  transition-colors hover:bg-powder hover:text-cyan-600 ${
+                tip === 0.25
+                  ? 'text-cyan-600 bg-cyan-500'
+                  : 'text-white bg-cyan-600'
+              }`}
+              value={0.25}
+              onClick={e => setTip(Number(e.target.value))}
+            >
               25%
             </button>
-            <button className='bg-cyan-600 px-4 py-2 text-2xl font-semibold text-white rounded-md active:text-cyan-600 active:bg-cyan-500 transition-colors hover:bg-powder hover:text-cyan-600'>
+            <button
+              className={` px-4 py-2 text-2xl font-semibold  rounded-md  transition-colors hover:bg-powder hover:text-cyan-600 ${
+                tip === 0.5
+                  ? 'text-cyan-600 bg-cyan-500'
+                  : 'text-white bg-cyan-600'
+              }`}
+              value={0.5}
+              onClick={e => setTip(Number(e.target.value))}
+            >
               50%
             </button>
             <input
               type='text'
               placeholder='Custom'
-              className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors selection:bg-cyan-400 selection:text-cyan-200 hover:cursor-pointer placeholder:text-cyan-400'
+              className='bg-cyan-100 py-2 px-4 rounded-md text-right text-cyan-600 text-xl font-bold focus:outline-none focus:border-2 focus:border-cyan-500 border-2 border-cyan-100 transition-colors hover:cursor-pointer placeholder:text-cyan-400'
+              value={customTip}
+              onChange={e => setCustomTip(Number(e.target.value))}
             />
           </div>
         </div>
@@ -59,8 +140,11 @@ function Form() {
           </label>
           <div className='relative overflow-hidden grid grid-cols-1'>
             <input
+              value={people}
+              onChange={e => validatePeople(e)}
               type='text'
-              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-red border-2 border-cyan-100 transition-colors selection:bg-cyan-400 selection:text-cyan-200 hover:cursor-pointer'
+              placeholder='0'
+              className='bg-cyan-100 py-2 pl-10 pr-4 rounded-md text-right text-cyan-600 text-2xl font-bold focus:outline-none focus:border-2 focus:border-red border-2 border-cyan-100 transition-colors hover:cursor-pointer'
             />
             <img
               src={iconPerson}

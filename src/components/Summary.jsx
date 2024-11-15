@@ -1,4 +1,15 @@
-function Summary() {
+import { useEffect, useState } from 'react';
+
+/* eslint-disable react/prop-types */
+function Summary({ bill }) {
+  const [animate, setAnimate] = useState(false);
+
+  const { tipPerPerson, totalPerPerson } = bill;
+
+  useEffect(() => {
+    setAnimate(true);
+  }, [tipPerPerson, totalPerPerson]);
+
   return (
     <div className='px-6 pb-8 md:py-6 bg-white md:rounded-tr-3xl md:rounded-br-3xl'>
       <div className='px-6 md:px-10 md:pb-10 pb-6 pt-10 md:pt-16 bg-cyan-600 rounded-xl h-full'>
@@ -13,8 +24,13 @@ function Summary() {
                 </span>
               </div>
               <div className='col-span-1 justify-items-end'>
-                <p className='text-3xl md:text-4xl font-semibold text-cyan-500'>
-                  $4.27
+                <p
+                  onAnimationEnd={() => setAnimate(false)}
+                  className={`text-3xl md:text-4xl font-semibold text-cyan-500 ${
+                    animate ? 'animate-slideLeft' : ''
+                  }`}
+                >
+                  {tipPerPerson ? `$${tipPerPerson}` : '$0.00'}
                 </p>
               </div>
             </div>
@@ -28,8 +44,13 @@ function Summary() {
                 </span>
               </div>
               <div className='col-span-1 justify-items-end'>
-                <p className='text-3xl md:text-4xl  font-semibold text-cyan-500'>
-                  $32.79
+                <p
+                  onAnimationEnd={() => setAnimate(false)}
+                  className={`text-3xl md:text-4xl font-semibold text-cyan-500 ${
+                    animate ? 'animate-slideLeft' : ''
+                  }`}
+                >
+                  {totalPerPerson ? `$${totalPerPerson}` : '$0.00'}
                 </p>
               </div>
             </div>

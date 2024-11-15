@@ -2,7 +2,18 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        slideLeft: {
+          '0%': { transform: 'translateX(20px)', opacity: '0%' },
+          '80%': { transform: 'translateX(-5px)' },
+          '100%': { transform: 'translateX(0)', opacity: '100%' },
+        },
+      },
+      animation: {
+        slideLeft: 'slideLeft .5s ease-in-out',
+      },
+    },
     colors: {
       white: 'hsl(0, 0%, 100%)',
       cyan: {
